@@ -1,0 +1,27 @@
+### save product
+POST localhost:7090/api/product
+Authorization: {{token}}
+Accept: application/json
+Content-Type: application/json
+
+{ "description":"i-phone12 gold","name":"i-phone12","price":120000}
+
+### get all product
+GET localhost:7090/api/product
+Authorization: {{token}}
+Accept: application/json
+
+### get product by id
+GET localhost:7090/api/product/67ba8e2725745e4326c642a6
+Authorization: {{token}}
+ccept: application/json
+
+### get product by name
+GET localhost:7090/api/product/by-name/i-phone10
+Authorization: {{token}}
+Accept: application/json
+
+### new request
+GET http://localhost:7090/api/product
+Authorization: {{token}}
+Cookie: JSESSIONID=8C8C388E82B2093D69BFBBAE5B7A4610

@@ -1,0 +1,49 @@
+### save order
+# To Disable saving requests to requests history
+// @no-log
+# To Disable saving received cookies to the cookies jar
+// @no-cookie-jar
+POST {{host}}:{{port}}/order
+Authorization: {{token}}
+Accept: application/json
+Content-Type: application/json
+
+{ "price":130000.00,"productName":"i-phone13","quantity":12 }
+
+### get all order
+// @no-log
+GET {{host}}:{{port}}/order/all
+Authorization: {{token}}
+Accept: application/json
+
+### get order by id
+// @no-log
+GET {{host}}:{{port}}/order/2
+Authorization: {{token}}
+Accept: application/json
+
+### place order
+// @no-log
+GET {{host}}:{{port}}/order/placed-order?product=i-phone10&quantity=11
+Authorization: {{token}}
+Accept: application/json
+
+### product
+// @no-log
+GET {{host}}:{{port}}/order/product?product=i-phone10
+Authorization: {{token}}
+Accept: application/json
+
+### validate request
+// @no-log
+GET {{host}}:{{port}}/order/validate
+Authorization: {{token}}
+Cookie: JSESSIONID=8C8C388E82B2093D69BFBBAE5B7A4610
+
+### new request
+GET http://localhost:7094/inventory/rate-limiter?quantity=11
+
+### new request
+GET http://localhost:7090/order/
+Authorization: {{token}}
+Cookie: JSESSIONID=8C8C388E82B2093D69BFBBAE5B7A4610

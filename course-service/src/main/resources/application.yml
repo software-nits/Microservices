@@ -1,0 +1,7 @@
+server:
+  port: 7098
+spring:
+  application:
+    name: course-service
+
+

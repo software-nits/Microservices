@@ -1,0 +1,37 @@
+### save order
+POST localhost:7090/order
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrdW5hbEBnbWFpbDIuY29tIiwiaWF0IjoxNzQwNDgzNTcyLCJleHAiOjE3NDA1Njk5NzJ9.YdvElLcBg-jMehWpRUQ4RCOACguW8acKpXC4uTnM7Cw
+Accept: application/json
+Content-Type: application/json
+
+{ "quantity":12,"productName":"i-phone12","price":120000.00}
+
+### get all order
+GET localhost:7090/order/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrdW5hbEBnbWFpbDIuY29tIiwiaWF0IjoxNzQwNDgzNTcyLCJleHAiOjE3NDA1Njk5NzJ9.YdvElLcBg-jMehWpRUQ4RCOACguW8acKpXC4uTnM7Cw
+Accept: application/json
+
+### get order by id
+GET localhost:7090/order/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrdW5hbEBnbWFpbDIuY29tIiwiaWF0IjoxNzQwNDgzNTcyLCJleHAiOjE3NDA1Njk5NzJ9.YdvElLcBg-jMehWpRUQ4RCOACguW8acKpXC4uTnM7Cw
+Accept: application/json
+
+### place order
+GET http://localhost:7090/order/placed-order?product=i-phone10&quantity=1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrdW5hbEBnbWFpbDIuY29tIiwiaWF0IjoxNzQwNDgzNTcyLCJleHAiOjE3NDA1Njk5NzJ9.YdvElLcBg-jMehWpRUQ4RCOACguW8acKpXC4uTnM7Cw
+Accept: application/json
+
+### product
+GET http://localhost:7090/order/product?product=i-phone10
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrdW5hbEBnbWFpbDIuY29tIiwiaWF0IjoxNzQwNDgzNTcyLCJleHAiOjE3NDA1Njk5NzJ9.YdvElLcBg-jMehWpRUQ4RCOACguW8acKpXC4uTnM7Cw
+Accept: application/json
+
+### validate request
+GET http://localhost:7090/order/validate
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrdW5hbEBnbWFpbDIuY29tIiwiaWF0IjoxNzQwNDgzNTcyLCJleHAiOjE3NDA1Njk5NzJ9.YdvElLcBg-jMehWpRUQ4RCOACguW8acKpXC4uTnM7Cw
+Cookie: JSESSIONID=8C8C388E82B2093D69BFBBAE5B7A4610
+
+### new request
+GET http://localhost:7090/order/
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJrdW5hbEBnbWFpbDIuY29tIiwiaWF0IjoxNzQwNDgzNTcyLCJleHAiOjE3NDA1Njk5NzJ9.YdvElLcBg-jMehWpRUQ4RCOACguW8acKpXC4uTnM7Cw
+Cookie: JSESSIONID=8C8C388E82B2093D69BFBBAE5B7A4610

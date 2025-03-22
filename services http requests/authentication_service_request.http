@@ -1,0 +1,30 @@
+### authenticate-user
+POST {{host}}:{{port}}/authentication/authenticate
+Accept: application/json
+Content-Type: application/json
+
+{ "email" : "kunal@gmail2.com", "password": "1234"}
+
+### register-user
+POST {{host}}:{{port}}/authentication/register
+Accept: application/json
+Content-Type: application/json
+
+{ "userName" : "raj kumar", "password": "1234", "email" : "raj@gmail2.com", "role": "USER"}
+
+### validate-token
+GET http://{{host}}:{{port}}/authentication/validate-token
+Authorization: {{token}}
+Cookie: JSESSIONID=8C8C388E82B2093D69BFBBAE5B7A4610
+
+### get all user
+GET {{host}}:{{port}}/user/all
+Authorization: {{token}}
+Cookie: JSESSIONID=8C8C388E82B2093D69BFBBAE5B7A4610
+
+### new request
+GET http://{{host}}:{{port}}/user/
+Authorization: {{token}}
+Cookie: JSESSIONID=8C8C388E82B2093D69BFBBAE5B7A4610
+
+###

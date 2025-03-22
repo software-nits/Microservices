@@ -1,0 +1,49 @@
+server:
+  port: 7093
+spring:
+  application:
+    name: product-service
+    data:
+      mongodb:
+        uri: mongodb://localhost:27017/Product-Service
+  kafka:
+    consumer:
+      group-id: order-group
+      auto-offset-reset: latest
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: com.software.productservice.utils.CustomDeserializer
+      properties:
+        kafka.deserializer.event.mapping: orderEvent:com.software.productservice.dto.OrderEvent
+#    management:
+#      health:
+#        circuitbreakers:
+#          enabled: true
+#      endpoints:
+#        web:
+#          exposure:
+#            include: health
+#      endpoint:
+#        health:
+#          show-details: always
+#    resilience4j:
+#      circuitbreaker:
+#        instances:
+#          productService:
+#            registerHealthIndicator: true
+#            eventConsumerBufferSize: 10
+#            failureRateThreshold: 50
+#            minimumNumberOfCalls: 5
+#            automaticTransitionFromOpenToHalfOpenEnabled: true
+#            waitDurationInOpenState: 5s
+#            premittedNumberOfCallsInHalfOpenState: 3
+#            slidingWindowSize: 10
+#            slidingWindowType: COUNT_BASED
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
