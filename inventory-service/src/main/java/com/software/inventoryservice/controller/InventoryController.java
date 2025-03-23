@@ -38,9 +38,6 @@ public class InventoryController {
     @GetMapping("/rate-limiter")
     public ResponseEntity<String> rateLimiter(@RequestParam int quantity) {
         if (quantity > 10) {
-
-            new Thread(this::consume).start();
-            new Thread(this::printOdd).start();
             while (!bucket.tryConsume(1)) {
                 log.info("sleeping with AvailableTokens = {} and quantity {}", bucket.getAvailableTokens(), quantity);
                 try {
