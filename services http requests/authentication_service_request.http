@@ -3,14 +3,14 @@ POST {{host}}:{{port}}/authentication/authenticate
 Accept: application/json
 Content-Type: application/json
 
-{ "email" : "kunal@gmail2.com", "password": "1234"}
+{ "email" : "rajnish@gmail.com", "password": "1234"}
 
 ### register-user
 POST {{host}}:{{port}}/authentication/register
 Accept: application/json
 Content-Type: application/json
 
-{ "userName" : "raj kumar", "password": "1234", "email" : "raj@gmail2.com", "role": "USER"}
+{ "userName" : "rajnish kumar", "email" : "rajnish@gmail.com", "password": "1234", "role": "USER"}
 
 ### validate-token
 GET http://{{host}}:{{port}}/authentication/validate-token
@@ -23,8 +23,14 @@ Authorization: {{token}}
 Cookie: JSESSIONID=8C8C388E82B2093D69BFBBAE5B7A4610
 
 ### new request
-GET http://{{host}}:{{port}}/user/
+GET http://{{host}}:{{port}}/user/504
 Authorization: {{token}}
 Cookie: JSESSIONID=8C8C388E82B2093D69BFBBAE5B7A4610
+
+### new request
+GET http://localhost:7091/user/all
+
+### new request
+GET http://localhost:7094/inventory/bean-check
 
 ###

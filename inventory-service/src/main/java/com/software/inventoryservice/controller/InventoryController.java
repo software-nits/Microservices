@@ -1,5 +1,6 @@
 package com.software.inventoryservice.controller;
 
+import com.software.inventoryservice.config.Employee;
 import com.software.inventoryservice.constants.Constant;
 import com.software.inventoryservice.service.RetryService;
 import io.github.bucket4j.Bucket;
@@ -8,10 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
@@ -23,17 +21,31 @@ public class InventoryController {
     private final Bucket bucket;
     private final Environment environment;
     private final RetryService retryService;
+    private final Employee kunalEmployee;
+    private final Employee rajnishEmployee;
 
-    public InventoryController(Bucket bucket, Environment environment1, RetryService retryService) {
+    public InventoryController(Bucket bucket, Environment environment1, RetryService retryService, Employee kunalEmployee, Employee rajnishEmployee) {
         this.bucket = bucket;
         this.environment = environment1;
         this.retryService = retryService;
+        this.kunalEmployee = kunalEmployee;
+        this.rajnishEmployee = rajnishEmployee;
     }
 
+    @GetMapping("/bean-check")
+    public ResponseEntity<String> beanCheck() {
+        System.out.println(rajnishEmployee.getFirstName()+", "+rajnishEmployee.getLastName()+", "+rajnishEmployee.getEmail());
+        System.out.println(kunalEmployee.getFirstName()+", "+kunalEmployee.getLastName()+", "+kunalEmployee.getEmail());
+        return ResponseEntity.ok("consumed requests with message");
+    }
     @GetMapping("/retry")
     public ResponseEntity<String> retryCheck(@RequestParam String message) {
         retryService.retryMethod(message);
         return ResponseEntity.ok("consumed requests with message: " + message);
+    }
+    @PostMapping("/web-call")
+    public ResponseEntity<String> webClientCall(@RequestBody com.software.inventoryservice.bean.Employee employee) {
+        return ResponseEntity.ok("consumed requests with message: " + employee.getEmployeeId());
     }
     @GetMapping("/rate-limiter")
     public ResponseEntity<String> rateLimiter(@RequestParam int quantity) {

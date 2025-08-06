@@ -29,6 +29,9 @@ rate-limiter:
   thread-sleep-duration: 5000
 
 management:
+  tracing:
+    sampling:
+      probability: 1.0
   health:
     circuit breakers:
       enabled: true

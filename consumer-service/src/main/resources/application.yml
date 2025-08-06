@@ -27,3 +27,12 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka/
+rate-limiter:
+  number-of-message: 30
+  duration-to-consume: 60
+  thread-sleep-duration: 1000
+  report-interval: 6000
+management:
+  tracing:
+    sampling:
+      probability: 1.0

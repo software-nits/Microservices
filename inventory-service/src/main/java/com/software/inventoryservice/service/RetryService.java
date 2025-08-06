@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.retry.support.RetrySynchronizationManager;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -23,5 +24,11 @@ public class RetryService {
             int number = Integer.parseInt(message);
             logger.info("Message is not number then retry {}", number);
         }
+    }
+
+    @Scheduled(fixedRateString = "${rate-limiter.report-interval}")
+    public void scheduler() {
+        System.out.println("Scheduler is running");
+        logger.info("calling fallback method for placed order with product name {} and quantity {}.", "i phone", 13);
     }
 }

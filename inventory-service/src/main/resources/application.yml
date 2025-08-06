@@ -16,9 +16,10 @@ spring:
 #      hibernate:
 #        show_sql: true
 rate-limiter:
-  number-of-message: 10
-  duration-to-consume: 160
-  thread-sleep-duration: 5000
+  number-of-message: 4
+  duration-to-consume: 40
+  thread-sleep-duration: 1000
+  report-interval: 6000
 #eureka:
 #  instance:
 #    hostname: localhost

@@ -19,7 +19,10 @@ public class ProducerService {
 
     public String produceOrderEvent(OrderEvent orderEvent){
         logger.debug("started producing order event to consumer {}.",orderEvent.toString());
-        kafkaTemplate.send(Constant.TOPIC_NAME,orderEvent);
+        for(int i=0;i<100;i++){
+            kafkaTemplate.send(Constant.TOPIC_NAME,orderEvent);
+        }
+//        kafkaTemplate.send(Constant.TOPIC_NAME,orderEvent);
         logger.debug("completed producing order event to consumer.");
         return orderEvent.getProductName();
     }

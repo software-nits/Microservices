@@ -1,5 +1,6 @@
 package com.software.inventoryservice.controller;
 
+import com.software.inventoryservice.config.Employee;
 import com.software.inventoryservice.constants.Constant;
 import com.software.inventoryservice.service.RetryService;
 import io.github.bucket4j.Bucket;
@@ -25,10 +26,14 @@ class InventoryControllerTest {
     private RetryService retryService;
     @Mock
     private Environment environment;
+    @Mock
+    private Employee rajnishEmployee;
+    @Mock
+    private Employee kunalEmployee;
 
     @BeforeEach
     void setUp() {
-        inventoryController = new InventoryController(bucket, environment, retryService);
+        inventoryController = new InventoryController(bucket, environment, retryService, rajnishEmployee, kunalEmployee);
     }
 
     @Test

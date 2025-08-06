@@ -3,5 +3,19 @@ server:
 spring:
   application:
     name: course-service
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    config:
+      profile: qa
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+api:
+  key: git current local api key
+  token: git current local api token
 
 

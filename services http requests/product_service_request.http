@@ -14,14 +14,21 @@ Accept: application/json
 ### get product by id
 GET localhost:7090/api/product/67ba8e2725745e4326c642a6
 Authorization: {{token}}
-ccept: application/json
+Accept: application/json
 
 ### get product by name
 GET localhost:7090/api/product/by-name/i-phone10
 Authorization: {{token}}
 Accept: application/json
 
-### new request
-GET http://localhost:7090/api/product
-Authorization: {{token}}
-Cookie: JSESSIONID=8C8C388E82B2093D69BFBBAE5B7A4610
+### produced order event
+POST http://localhost:8081/producer/order-event
+Accept: application/json
+Content-Type: application/json
+
+{ "quantity":6,"price":120000,"productName":"i-phone12"}
+
+### produced order event
+POST http://localhost:7098/actuator/refresh
+Accept: application/json
+Content-Type: application/json

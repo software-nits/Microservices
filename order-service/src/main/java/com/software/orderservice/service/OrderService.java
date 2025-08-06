@@ -12,11 +12,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
+import org.springframework.retry.support.RetrySynchronizationManager;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,13 +43,27 @@ public class OrderService {
         return orderRepository.findAll().stream().map(OdderMapper::mapToResponse).collect(Collectors.toList());
     }
     @CircuitBreaker(name = "productService", fallbackMethod = "getProductFallBackMethod")
-
     @Retryable(retryFor = {OrderNotFoundException.class}, maxAttempts = 2, backoff = @Backoff(delay = 1000 , multiplier = 2))
     public OrderResponse getOrderDetailsById(Long id) {
+        logger.info("Retry Number: {}", Objects.requireNonNull(RetrySynchronizationManager.getContext()).getRetryCount());
+        logger.info("throw RuntimeException in method retryService()");
         OrderDetails orderDetails = orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException("order not found with this id: " + id));
         ProductDetails productDetails = restTemplate.getForObject("http://product-service/api/product/by-name/"+orderDetails.getProductName(), ProductDetails.class);
         return getOrderResponse(productDetails, orderDetails);
     }
+
+    /*
+    /  this method is getting called when hit max retry attempts for retryable.
+     */
+    @Recover
+    public OrderResponse recover(OrderNotFoundException e, Long id) {
+        logger.info("recover method called with id: {} and exception message: {}", id, e.getMessage());
+        return getOrderResponse(new ProductDetails(), new OrderDetails());
+    }
+
+    /*
+    /  this method is getting called for CircuitBreaker fallback method.
+     */
     public OrderResponse getProductFallBackMethod(Long id, Exception exception) {
         logger.info("calling fallback method for get by id with id {}.", id);
         OrderResponse orderResponse = new OrderResponse();
@@ -63,13 +80,7 @@ public class OrderService {
         logger.error("exception occurred in product service for placed order request with error {}.",exception.getMessage());
         return orderResponse;
     }
-//    {
-//        "productId": "67ba8e2725745e4326c642a6",
-//            "description": "i-phone blue",
-//            "price": 100000.00,
-//            "productName": "i-phone10",
-//            "quantity": 10
-//    }
+
     @CircuitBreaker(name = "productService", fallbackMethod = "getProductFallBackForPlacedOrder")
     public OrderResponse placedOrder(String productName, int quantity) {
 
