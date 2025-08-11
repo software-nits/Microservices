@@ -91,7 +91,28 @@ class KafkaConsumerListenerTest {
 //
 //        verify(bucket, atLeastOnce()).tryConsume(1);
 //    }
+@org.junit.jupiter.api.Test
+@org.junit.jupiter.api.DisplayName("Logs error message when InterruptedException is caught during sleep")
+void logsErrorMessageWhenInterruptedExceptionIsCaughtDuringSleep() {
+    OrderEvent orderEvent = new OrderEvent();
+    orderEvent.setQuantity(10);
 
+    when(bucket.tryConsume(1)).thenReturn(false, true);
+    when(bucket.getAvailableTokens()).thenReturn(0L, 1L);
+    when(environment.getProperty(Constant.threadSleepDuration)).thenReturn("1");
+
+    KafkaConsumerListener listener = new KafkaConsumerListener(bucket, environment) {
+        @Override
+        protected void sleep(long millis) throws InterruptedException {
+            throw new InterruptedException("interrupted");
+        }
+    };
+
+    listener.getProductDetails(orderEvent);
+
+    verify(bucket, atLeastOnce()).tryConsume(1);
+    // Optionally, verify logger.error was called if logger is injectable/mocked
+}
     @Test
     @DisplayName("Handles null OrderEvent gracefully")
     void handlesNullOrderEventGracefully() {

@@ -1,5 +1,6 @@
 package com.software.consumerservice.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.software.consumerservice.dto.OrderEvent;
 import org.apache.commons.lang.SerializationException;
@@ -19,13 +20,13 @@ public class CustomDeserializer implements Deserializer<OrderEvent> {
     @Override
     public OrderEvent deserialize(String topic, byte[] data) {
         try {
-            if (data == null){
+            if (data == null) {
                 System.out.println("Null received at deserializing");
                 return null;
             }
             System.out.println("Deserializing...");
             return objectMapper.readValue(new String(data, StandardCharsets.UTF_8), OrderEvent.class);
-        } catch (Exception e) {
+        } catch (JsonProcessingException e) {
             throw new SerializationException("Error when deserializing byte[] to MessageDto");
         }
     }

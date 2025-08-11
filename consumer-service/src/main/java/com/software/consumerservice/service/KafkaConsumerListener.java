@@ -32,6 +32,7 @@ public class KafkaConsumerListener {
 
         if (Objects.nonNull(orderEvent) && Objects.nonNull(orderEvent.getQuantity()) && orderEvent.getQuantity() > 5) {
             while (!bucket.tryConsume(1)) {
+                logger.info("waiting to consume requests with AvailableTokens = {} and quantity {}", bucket.getAvailableTokens(), orderEvent.getQuantity());
                 logger.info("sleeping with AvailableTokens = {} and quantity {}", bucket.getAvailableTokens(), orderEvent.getQuantity());
                 try {
                     logger.info("sleeping in try with AvailableTokens = {} and quantity {}", bucket.getAvailableTokens(), orderEvent.getQuantity());
