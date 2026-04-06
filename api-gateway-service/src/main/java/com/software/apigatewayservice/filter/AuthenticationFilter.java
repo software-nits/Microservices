@@ -40,7 +40,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                     .noneMatch(uri -> {logger.info("request url is {}.",request.getURI().getPath());
                     return request.getURI().getPath().contains(uri);});
             if (predicate.test(exchange.getRequest())) {
-                if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION))
+                if (!exchange.getRequest().getHeaders().containsHeader(HttpHeaders.AUTHORIZATION))
                     throw new RuntimeException("authorization header not found.");
 
                 logger.info("checking auth header for security.");
