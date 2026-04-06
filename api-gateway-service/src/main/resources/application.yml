@@ -5,27 +5,29 @@ spring:
     name: api-gateway-service
   cloud:
     gateway:
-      routes:
-        - id: ORDER-SERVICE
-          uri: lb://ORDER-SERVICE
-          predicates:
-            - Path=/order/**
-          filters:
-            - AuthenticationFilter
-        - id: PRODUCT-SERVICE
-          uri: lb://PRODUCT-SERVICE
-          predicates:
-            - Path=/api/product/**
-          filters:
-            - AuthenticationFilter
-        - id: producer-service
-          uri: lb://producer-service
-          predicates:
-            - Path=/producer/**
-        - id: authentication-service
-          uri: lb://authentication-service
-          predicates:
-            - Path=/authentication/**, /user/**
+      server:
+        webflux:
+          routes:
+            - id: ORDER-SERVICE
+              uri: lb://ORDER-SERVICE
+              predicates:
+                - Path=/order/**
+              filters:
+                - AuthenticationFilter
+            - id: PRODUCT-SERVICE
+              uri: lb://PRODUCT-SERVICE
+              predicates:
+                - Path=/api/product/**
+              filters:
+                - AuthenticationFilter
+            - id: producer-service
+              uri: lb://producer-service
+              predicates:
+                - Path=/producer/**
+            - id: authentication-service
+              uri: lb://authentication-service
+              predicates:
+                - Path=/authentication/**, /user/**
 
 eureka:
   instance:
